@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:onClick="saveBtn"
             android:text="Save" />
 
         <Button
@@ -39,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:onClick="resetBtn"
             android:text="Reset" />
 
         <Button
@@ -46,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:onClick="exitApp"
             android:text="Exit" />
 
         <Space

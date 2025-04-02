@@ -17,20 +17,12 @@ import androidx.core.view.WindowInsetsCompat;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-/**
- * The type Main activity.
- *
- * @author      Tal Weintraub <tv0823@bs.amalnet.k12.il>
- * @version	    1
- * @since		3/3/2025
- * short description:
- *      read text from file and put it in a textView or get text from the user and displays it and add it to the internal file.
- */
 public class MainActivity extends AppCompatActivity {
     /**
      * The textEt.
@@ -120,25 +112,28 @@ public class MainActivity extends AppCompatActivity {
     public String getFileText() {
         String text;
         try {
-            FileInputStream fIS= openFileInput (FILENAME);
-            InputStreamReader iSR = new InputStreamReader (fIS);
+            FileInputStream fIS = openFileInput(FILENAME);
+            InputStreamReader iSR = new InputStreamReader(fIS);
             BufferedReader bR = new BufferedReader(iSR);
             StringBuilder sB = new StringBuilder();
-            String line = bR.readLine();
-            while (line != null) {
-                sB.append(line+'\n');
-                line = bR.readLine();
+            String line;
+
+            while ((line = bR.readLine()) != null) {
+                sB.append(line).append("\n");
             }
             text = sB.toString();
 
             bR.close();
             iSR.close();
             fIS.close();
+        } catch (FileNotFoundException e) {
+            text = "";
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return text;
     }
+
 
     /**
      * Creates the options menu on screen
@@ -160,14 +155,16 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@Nullable MenuItem item) {
+        if (item == null) return false;
+
         int id = item.getItemId();
 
-        if(id == R.id.credits) {
+        if (id == R.id.credits) {
             Intent si = new Intent(this, Credits.class);
             startActivity(si);
         }
         return true;
-
     }
+
 
 }
